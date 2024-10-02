@@ -35,7 +35,9 @@
     "react-select": "^2.0.0",
     "react-spinners": "^0.5.4",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.1"
+    "semantic-ui-react": "^0.88.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1"
   },
 "scripts": {
   "heroku-postbuild": "yarn install && NODE_OPTIONS=--openssl-legacy-provider yarn build",
@@ -110,8 +112,6 @@
     "@storybook/node-logger": "^6.3.4",
     "@storybook/react": "^6.3.4",
     "autoprefixer": "^9",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
     "postcss": "^7",
     "prettier": "^3.3.3",
     "storybook": "^6.3.4",
