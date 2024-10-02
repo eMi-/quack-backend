@@ -27,7 +27,7 @@
                                 <argument>-g</argument>
                                 <argument>yarn</argument>
                             </arguments>
-                            <workingDirectory>.</workingDirectory>
+                            <workingDirectory>src</workingDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -42,7 +42,7 @@
                                 <argument>install</argument>
                                 <argument>--frozen-lockfile</argument>
                             </arguments>
-                            <workingDirectory>.</workingDirectory>
+                            <workingDirectory>src</workingDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -57,7 +57,7 @@
                                 <argument>run</argument>
                                 <argument>build</argument>
                             </arguments>
-                            <workingDirectory>.</workingDirectory>
+                            <workingDirectory>src</workingDirectory>
                         </configuration>
                     </execution>
                 </executions>
