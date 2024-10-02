@@ -37,20 +37,20 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1"
   },
-  "scripts": {
-    "heroku-postbuild": "yarn install && yarn build",
-    "start": "react-scripts --openssl-legacy-provider start",
-    "start:dev": "BASE_API_URL=http://localhost:81/api/ yarn start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "yarn eslint . --cache --cache-strategy content",
-    "lint:fix": "yarn eslint --fix --cache --cache-strategy content .",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
-    "clean": "del /f .eslintcache",
-    "postinstall": "del /f .eslintcache"
-  },
+"scripts": {
+  "heroku-postbuild": "yarn install && yarn build",
+  "start": "react-scripts --openssl-legacy-provider start",
+  "start:dev": "BASE_API_URL=http://localhost:81/api/ yarn start",
+  "build": "react-scripts build",
+  "test": "react-scripts test --env=jsdom",
+  "eject": "react-scripts eject",
+  "lint": "yarn eslint . --cache --cache-strategy content",
+  "lint:fix": "yarn eslint --fix --cache --cache-strategy content .",
+  "storybook": "start-storybook -p 6006 -s public",
+  "build-storybook": "build-storybook -s public",
+  "clean": "rm -f .eslintcache || del /f .eslintcache",
+  "postinstall": "rm -f .eslintcache || del /f .eslintcache"
+},
   "browserslist": {
     "production": [
       ">0.2%",
