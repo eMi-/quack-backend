@@ -5,7 +5,7 @@ import * as Utils from "../common/Utils";
 import Backend from "../services/backend";
 
 class ChangePassword extends SubComponent {
-  state = {session: {person:{}}};
+  state = { session: { person: {} } };
 
   constructor(props) {
     super(props);
@@ -26,7 +26,9 @@ class ChangePassword extends SubComponent {
         this.state.session = response;
         this.setState(this.state);
       })
-      .catch(() => {console.log("Unable to fetch session");});
+      .catch(() => {
+        console.log("Unable to fetch session");
+      });
   }
 
   handleChange(event) {
@@ -58,21 +60,21 @@ class ChangePassword extends SubComponent {
     return (
       <div className="text-center">
         {Utils.isUserOwnerOrAdmin(this.state.session, this.state.session.person.login) && (
-            <form className="form-signin">
-              <h1 className="h3 mb-3 font-weight-normal">Change Password</h1>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="form-control"
-                placeholder="New Password"
-                required=""
-                onChange={this.handleChange}
-              />
-              <button className="btn btn-lg btn-primary btn-block" onClick={this.handleSubmit}>
-                Submit
-              </button>
-            </form>
+          <form className="form-signin">
+            <h1 className="h3 mb-3 font-weight-normal">Change Password</h1>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="form-control"
+              placeholder="New Password"
+              required=""
+              onChange={this.handleChange}
+            />
+            <button className="btn btn-lg btn-primary btn-block" onClick={this.handleSubmit}>
+              Submit
+            </button>
+          </form>
         )}
       </div>
     );

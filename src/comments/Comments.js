@@ -18,7 +18,7 @@ class Comments extends SubComponent {
     this.state = {
       comments: [],
       commentToEdit: {},
-      session: {person:{}}
+      session: { person: {} },
     };
 
     this.projectId = props.projectId;
@@ -45,9 +45,14 @@ class Comments extends SubComponent {
   }
 
   getSession() {
-    Backend.get("user/session").then(response => {this.state.session = response;})
-        .catch(() => {console.log("Unable to fetch session");});
-    }
+    Backend.get("user/session")
+      .then(response => {
+        this.state.session = response;
+      })
+      .catch(() => {
+        console.log("Unable to fetch session");
+      });
+  }
 
   componentWillReceiveProps(nextProps) {
     var fetchCommentsNeeded = nextProps.forceFetch || false;

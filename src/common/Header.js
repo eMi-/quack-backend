@@ -11,16 +11,16 @@ import * as Utils from "../common/Utils";
 import Backend from "../services/backend";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.emptyState = {
-        session: {
-            person: { firstName: "Guest"},
-            metainfo: {analyticsEnabled: false}
-        }
+      session: {
+        person: { firstName: "Guest" },
+        metainfo: { analyticsEnabled: false },
+      },
     };
     this.state = Object.assign({}, { session: this.props.session, projects: [] });
     this.logOut = this.logOut.bind(this);
@@ -83,15 +83,15 @@ class Header extends Component {
     this.props.onSessionChange(session);
   }
 
-  changeOrganization(organizationId){
-      Backend.post("user/changeorg/" + organizationId)
-        .then(response => {
-          this.onSessionChange(response);
-          window.location = "/";
-        })
-        .catch(error => {
-          console.log("Unable to change organization");
-        });
+  changeOrganization(organizationId) {
+    Backend.post("user/changeorg/" + organizationId)
+      .then(response => {
+        this.onSessionChange(response);
+        window.location = "/";
+      })
+      .catch(error => {
+        console.log("Unable to change organization");
+      });
   }
 
   getProject() {
@@ -157,46 +157,58 @@ class Header extends Component {
     if (this.state.session.id) {
       profileContext = (
         <span>
-        {!this.state.session.metainfo || !this.state.session.metainfo.organizationsEnabled && (
-          <div>
-            <a className="dropdown-item" href={"/user/profile/" + this.state.session.person.login}>
-                Profile
-            </a>
-          </div>
-         )}
+          {!this.state.session.metainfo ||
+            (!this.state.session.metainfo.organizationsEnabled && (
+              <div>
+                <a className="dropdown-item" href={"/user/profile/" + this.state.session.person.login}>
+                  Profile
+                </a>
+              </div>
+            ))}
 
           {this.state.session.metainfo && this.state.session.metainfo.organizationsEnabled && (
             <div>
-                {this.state.session.metainfo.organizations.map(function (organization, index) {
+              {this.state.session.metainfo.organizations.map(
+                function (organization, index) {
                   return (
-                    <div index={index}  className='clickable dropdown-item' onClick={e => this.changeOrganization(organization.id, e)}>
-                        {organization.name}
-                        {this.state.session.metainfo.currentOrganization === organization.id && (<span> <FontAwesomeIcon icon={faCheck} /></span>)}
+                    <div
+                      index={index}
+                      className="clickable dropdown-item"
+                      onClick={e => this.changeOrganization(organization.id, e)}
+                    >
+                      {organization.name}
+                      {this.state.session.metainfo.currentOrganization === organization.id && (
+                        <span>
+                          {" "}
+                          <FontAwesomeIcon icon={faCheck} />
+                        </span>
+                      )}
                     </div>
-                  )
-                }.bind(this))}
-                <div className="dropdown-divider"></div>
-                <Link className="dropdown-item " to="/organizations/edit">
-                    Edit Current Organization
-                </Link>
-                <Link className="dropdown-item " to="/organizations/new">
-                    Create New Organization
-                </Link>
-
-            </div>
-          )}
-
-          {Utils.isUserOwnerOrAdmin(this.state.session) && (!this.state.session.metainfo || !this.state.session.metainfo.organizationsEnabled) && (
-            <div>
+                  );
+                }.bind(this),
+              )}
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href={"/user/all-users-redirect"}>
-                All Users
-              </a>
-              <a className="dropdown-item" href={"/user/create-redirect"}>
-                Create User
-              </a>
+              <Link className="dropdown-item " to="/organizations/edit">
+                Edit Current Organization
+              </Link>
+              <Link className="dropdown-item " to="/organizations/new">
+                Create New Organization
+              </Link>
             </div>
           )}
+
+          {Utils.isUserOwnerOrAdmin(this.state.session) &&
+            (!this.state.session.metainfo || !this.state.session.metainfo.organizationsEnabled) && (
+              <div>
+                <div className="dropdown-divider"></div>
+                <a className="dropdown-item" href={"/user/all-users-redirect"}>
+                  All Users
+                </a>
+                <a className="dropdown-item" href={"/user/create-redirect"}>
+                  Create User
+                </a>
+              </div>
+            )}
 
           <div className="dropdown-divider"></div>
           <a className="dropdown-item" href="#" onClick={this.logOut}>
@@ -213,20 +225,22 @@ class Header extends Component {
     }
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-green">
-
-      {/* Google analytics*/}
-      { this.state.session.metainfo && this.state.session.metainfo.analyticsEnabled && (
-            <Helmet>
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-4CEVX7JVR7"></script>
-            </Helmet>
+        {/* Google analytics*/}
+        {this.state.session.metainfo && this.state.session.metainfo.analyticsEnabled && (
+          <Helmet>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-4CEVX7JVR7"></script>
+          </Helmet>
         )}
-        { this.state.session.metainfo && this.state.session.metainfo.analyticsEnabled && (
-            <Helmet
-              script={[{
-                type: 'text/javascript',
-                innerHTML: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-4CEVX7JVR7');"
-              }]}
-            />
+        {this.state.session.metainfo && this.state.session.metainfo.analyticsEnabled && (
+          <Helmet
+            script={[
+              {
+                type: "text/javascript",
+                innerHTML:
+                  "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-4CEVX7JVR7');",
+              },
+            ]}
+          />
         )}
 
         <Link className="navbar-brand" to="/">

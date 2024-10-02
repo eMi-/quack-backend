@@ -39,16 +39,16 @@ class Attachments extends SubComponent {
     }
     this.setState(this.state);
     if (this.state.projectId && this.state.testcase.id && this.state.testcase.id != null) {
-      $("#file-data").fileinput('destroy');
+      $("#file-data").fileinput("destroy");
       $("#file-data").fileinput({
         previewFileType: "any",
         uploadUrl: getApiBaseUrl(this.state.projectId + "/testcase/" + this.state.testcase.id + "/attachment"),
-        maxFileSize: 100000
+        maxFileSize: 100000,
       });
       $("#file-data").on(
         "fileuploaded",
         function (event, file, previewId, index) {
-            this.onTestcaseUpdated();
+          this.onTestcaseUpdated();
         }.bind(this),
       );
     }

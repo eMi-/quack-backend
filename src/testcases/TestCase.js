@@ -152,16 +152,19 @@ class TestCase extends SubComponent {
       });
   }
 
-  cloneTestCase(){
-      Backend.post(this.projectId  + "/testcase/" + this.state.testcase.id + "/clone")
-            .then(response => {
-              window.location.href = window.location.href.replace('testcase=' + this.state.testcase.id, 'testcase=' + response.id)
-            })
-            .catch(error => {
-              Utils.onErrorMessage("Couldn't clone testcase: ", error);
-              this.state.loading = false;
-              this.setState(this.state);
-            });
+  cloneTestCase() {
+    Backend.post(this.projectId + "/testcase/" + this.state.testcase.id + "/clone")
+      .then(response => {
+        window.location.href = window.location.href.replace(
+          "testcase=" + this.state.testcase.id,
+          "testcase=" + response.id,
+        );
+      })
+      .catch(error => {
+        Utils.onErrorMessage("Couldn't clone testcase: ", error);
+        this.state.loading = false;
+        this.setState(this.state);
+      });
   }
 
   handleChange(fieldName, event, index, arrObjectKey, skipStateRefresh) {
@@ -382,7 +385,7 @@ class TestCase extends SubComponent {
   getAttributeKeysToAdd() {
     return (this.state.projectAttributes || [])
       .filter(attribute => !(Object.keys(this.state.testcase.attributes || {}) || []).includes(attribute.id))
-      .filter(attribute => attribute.id !== 'broken')
+      .filter(attribute => attribute.id !== "broken")
       .map(attribute => ({ value: attribute.id, label: attribute.name }));
   }
 
@@ -529,7 +532,9 @@ class TestCase extends SubComponent {
               <div id="name-display" className="inplace-display row">
                 <div className="col-9">
                   <h1>
-                    <em><span className="testcase-id-in-title text-muted">{this.state.testcase.id}</span></em>
+                    <em>
+                      <span className="testcase-id-in-title text-muted">{this.state.testcase.id}</span>
+                    </em>
                     <Link to={"/" + this.projectId + "/testcase/" + this.state.testcase.id}>
                       {this.state.testcase.name || this.state.testcase.importedName || ""}
                     </Link>
@@ -546,17 +551,27 @@ class TestCase extends SubComponent {
                   </h1>
                 </div>
                 {!this.state.readonly && (
-                   <div className="col-1">
-                     <div class="dropdown">
-                       <span class="dropdown-toggle clickable" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           <FontAwesomeIcon icon={faBars} />
-                       </span>
-                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                           <a class="dropdown-item" href="#" onClick={e => this.cloneTestCase()}>Clone</a>
-                         </div>
-                     </div>
-                   </div>
-                 )}
+                  <div className="col-1">
+                    <div class="dropdown">
+                      <span
+                        class="dropdown-toggle clickable"
+                        href="#"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <FontAwesomeIcon icon={faBars} />
+                      </span>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#" onClick={e => this.cloneTestCase()}>
+                          Clone
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 {!this.state.readonly && (
                   <div className="col-2">
                     <Checkbox
@@ -567,7 +582,6 @@ class TestCase extends SubComponent {
                     />
                   </div>
                 )}
-
               </div>
               {!this.state.readonly && (
                 <div id="name-form" className="inplace-form" style={{ display: "none" }}>
@@ -622,13 +636,13 @@ class TestCase extends SubComponent {
                   <div id="description-form" className="inplace-form" style={{ display: "none" }}>
                     <Editor
                       initialValue={this.state.testcase.description}
-                      apiKey='u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi'
+                      apiKey="u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi"
                       init={{
                         height: 500,
                         menubar: false,
                         plugins: this.tinymcePlugins,
                         toolbar: this.tinymceToolbar,
-                        content_style: this.tinymceContentStyle
+                        content_style: this.tinymceContentStyle,
                       }}
                       onEditorChange={val =>
                         this.handleChange("description", { target: { value: val } }, null, null, true)
@@ -679,13 +693,13 @@ class TestCase extends SubComponent {
                   <div id="preconditions-form" className="inplace-form" style={{ display: "none" }}>
                     <Editor
                       initialValue={this.state.testcase.preconditions}
-                      apiKey='u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi'
+                      apiKey="u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi"
                       init={{
                         height: 500,
                         menubar: false,
                         plugins: this.tinymcePlugins,
                         toolbar: this.tinymceToolbar,
-                        content_style: this.tinymceContentStyle
+                        content_style: this.tinymceContentStyle,
                       }}
                       onEditorChange={val =>
                         this.handleChange("preconditions", { target: { value: val } }, null, null, true)
@@ -727,13 +741,13 @@ class TestCase extends SubComponent {
                             <p className="card-text">
                               <Editor
                                 initialValue={this.state.testcase.steps[i].action}
-                                apiKey='u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi'
+                                apiKey="u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi"
                                 init={{
                                   height: 300,
                                   menubar: false,
                                   plugins: this.tinymcePlugins,
                                   toolbar: this.tinymceToolbar,
-                                  content_style: this.tinymceContentStyle
+                                  content_style: this.tinymceContentStyle,
                                 }}
                                 onEditorChange={val => this.handleStepActionChange(i, val, false)}
                               />
@@ -742,13 +756,13 @@ class TestCase extends SubComponent {
                             <p className="card-text">
                               <Editor
                                 initialValue={this.state.testcase.steps[i].expectation}
-                                apiKey='u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi'
+                                apiKey="u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi"
                                 init={{
                                   height: 300,
                                   menubar: false,
                                   plugins: this.tinymcePlugins,
                                   toolbar: this.tinymceToolbar,
-                                  content_style: this.tinymceContentStyle
+                                  content_style: this.tinymceContentStyle,
                                 }}
                                 onEditorChange={val => this.handleStepExpectationChange(i, val, false)}
                               />
@@ -777,7 +791,8 @@ class TestCase extends SubComponent {
                                 <div className="card-text">
                                   <div
                                     dangerouslySetInnerHTML={{
-                                      __html: "<b><i>" + (i + 1) + ". Step </i></b>" + this.state.testcase.steps[i].action,
+                                      __html:
+                                        "<b><i>" + (i + 1) + ". Step </i></b>" + this.state.testcase.steps[i].action,
                                     }}
                                   ></div>
                                 </div>
@@ -792,24 +807,24 @@ class TestCase extends SubComponent {
                                 ></div>
 
                                 {!this.state.readonly && (
-                                <div className="row">
-                                  <div className="col-md-10"></div>
-                                  <div className="col-md-1">
-                                    <a href="#" className="card-link" onClick={e => this.toggleEdit("steps", e, i)}>
-                                      Edit
-                                    </a>
-                                  </div>
+                                  <div className="row">
+                                    <div className="col-md-10"></div>
+                                    <div className="col-md-1">
+                                      <a href="#" className="card-link" onClick={e => this.toggleEdit("steps", e, i)}>
+                                        Edit
+                                      </a>
+                                    </div>
 
-                                  <div className="col-md-1">
-                                    <ConfirmButton
-                                      onSubmit={this.removeStep}
-                                      buttonClass={"card-link red float-right"}
-                                      id={i}
-                                      modalText={"Are you sure you want to remove Test Step?"}
-                                      buttonText={"Remove"}
-                                    />
+                                    <div className="col-md-1">
+                                      <ConfirmButton
+                                        onSubmit={this.removeStep}
+                                        buttonClass={"card-link red float-right"}
+                                        id={i}
+                                        modalText={"Are you sure you want to remove Test Step?"}
+                                        buttonText={"Remove"}
+                                      />
+                                    </div>
                                   </div>
-                                </div>
                                 )}
                               </div>
                             </div>
@@ -827,13 +842,13 @@ class TestCase extends SubComponent {
                               <p className="card-text">
                                 <Editor
                                   initialValue={this.state.testcase.steps[i].action}
-                                  apiKey='u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi'
+                                  apiKey="u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi"
                                   init={{
                                     height: 300,
                                     menubar: false,
                                     plugins: this.tinymcePlugins,
                                     toolbar: this.tinymceToolbar,
-                                    content_style: this.tinymceContentStyle
+                                    content_style: this.tinymceContentStyle,
                                   }}
                                   onEditorChange={val => this.handleStepActionChange(i, val, false)}
                                 />
@@ -842,13 +857,13 @@ class TestCase extends SubComponent {
                               <p className="card-text">
                                 <Editor
                                   initialValue={this.state.testcase.steps[i].expectation}
-                                  apiKey='u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi'
+                                  apiKey="u5vv578ulj3h3ztoac8v58phwjkq2u6xaw9ohhjp0bofz8zi"
                                   init={{
                                     height: 300,
                                     menubar: false,
                                     plugins: this.tinymcePlugins,
                                     toolbar: this.tinymceToolbar,
-                                    content_style: this.tinymceContentStyle
+                                    content_style: this.tinymceContentStyle,
                                   }}
                                   onEditorChange={val => this.handleStepExpectationChange(i, val, false)}
                                 />

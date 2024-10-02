@@ -7,7 +7,7 @@ import Backend from "../services/backend";
 class Profile extends SubComponent {
   state = {
     profile: {},
-    session: {person:{}}
+    session: { person: {} },
   };
 
   constructor(props) {
@@ -36,12 +36,12 @@ class Profile extends SubComponent {
 
   getSession() {
     Backend.get("user/session")
-          .then(response => {
-                this.state.session = response;
-          })
-          .catch(() => {
-            console.log("Unable to fetch session");
-          });
+      .then(response => {
+        this.state.session = response;
+      })
+      .catch(() => {
+        console.log("Unable to fetch session");
+      });
   }
 
   render() {
@@ -51,8 +51,8 @@ class Profile extends SubComponent {
           {this.state.profile.firstName} {this.state.profile.lastName}{" "}
           <span className="text-muted">({this.state.profile.login})</span>{" "}
         </h1>
-        {!this.state.session.metainfo || !this.state.session.metainfo.organizationsEnabled && (
-
+        {!this.state.session.metainfo ||
+          (!this.state.session.metainfo.organizationsEnabled && (
             <div>
               <div className="row">
                 <div className="col-12">
@@ -60,7 +60,7 @@ class Profile extends SubComponent {
                 </div>
               </div>
             </div>
-        )}
+          ))}
       </div>
     );
   }

@@ -19,7 +19,7 @@ class OrganizationForm extends Component {
       },
       administratorsEdit: "",
       usersEdit: "",
-      readonly: false // ToDo set to true if not admin and id is not null
+      readonly: false, // ToDo set to true if not admin and id is not null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,39 +32,40 @@ class OrganizationForm extends Component {
     this.handleAdminAdded = this.handleAdminAdded.bind(this);
     this.handleAdminDeleted = this.handleAdminDeleted.bind(this);
     this.handleUserDeleted = this.handleUserDeleted.bind(this);
-
   }
 
   componentDidMount() {
     if (this.props.editCurrent) {
-        Backend.get("user/session")
-          .then(response => {
-            this.currentLogin = response.login;
-            if ((response.metainfo || {}).organizationsEnabled){
-                Backend.get("organization/" + response.metainfo.currentOrganization).then(response => {
-                    this.state.organization = response;
-                    this.state.readonly = !(this.state.organization.admins||[]).includes(this.currentLogin );
-                    this.setState(this.state);
-                }).catch((e) => {
-                    console.log("Unable to fetch organization");
-                }).bind(this);
-            }
-          })
-          .catch((e) => {
-            console.log("Unable to fetch session");
-          });
+      Backend.get("user/session")
+        .then(response => {
+          this.currentLogin = response.login;
+          if ((response.metainfo || {}).organizationsEnabled) {
+            Backend.get("organization/" + response.metainfo.currentOrganization)
+              .then(response => {
+                this.state.organization = response;
+                this.state.readonly = !(this.state.organization.admins || []).includes(this.currentLogin);
+                this.setState(this.state);
+              })
+              .catch(e => {
+                console.log("Unable to fetch organization");
+              })
+              .bind(this);
+          }
+        })
+        .catch(e => {
+          console.log("Unable to fetch session");
+        });
     } else {
-        Backend.get("user/session")
-          .then(response => {
-            this.currentLogin = response.login;
-            this.state.organization.admins.push(response.login);
-            this.setState(this.state);
-          })
-          .catch((e) => {
-            console.log("Unable to fetch session");
-          });
+      Backend.get("user/session")
+        .then(response => {
+          this.currentLogin = response.login;
+          this.state.organization.admins.push(response.login);
+          this.setState(this.state);
+        })
+        .catch(e => {
+          console.log("Unable to fetch session");
+        });
     }
-
   }
 
   handleAdminsChange(event) {
@@ -73,19 +74,18 @@ class OrganizationForm extends Component {
   }
 
   handleAdminAdded(event) {
-      if (this.state.administratorsEdit !== ""){
-        this.state.organization.admins.push(this.state.administratorsEdit);
-        this.state.administratorsEdit = "";
-        this.setState(this.state);
-      }
-      event.preventDefault();
+    if (this.state.administratorsEdit !== "") {
+      this.state.organization.admins.push(this.state.administratorsEdit);
+      this.state.administratorsEdit = "";
+      this.setState(this.state);
+    }
+    event.preventDefault();
   }
 
   handleAdminDeleted(index, event) {
-      this.state.organization.admins.splice(index, 1);
-      this.setState(this.state);
+    this.state.organization.admins.splice(index, 1);
+    this.setState(this.state);
   }
-
 
   handleUsersChange(event) {
     this.state.usersEdit = event.target.value;
@@ -93,17 +93,17 @@ class OrganizationForm extends Component {
   }
 
   handleUserAdded(event) {
-        if (this.state.usersEdit !== ""){
-          this.state.organization.allowedUsers.push(this.state.usersEdit);
-          this.state.usersEdit = "";
-          this.setState(this.state);
-        }
-        event.preventDefault();
+    if (this.state.usersEdit !== "") {
+      this.state.organization.allowedUsers.push(this.state.usersEdit);
+      this.state.usersEdit = "";
+      this.setState(this.state);
+    }
+    event.preventDefault();
   }
 
   handleUserDeleted(index, event) {
-      this.state.organization.allowedUsers.splice(index, 1);
-      this.setState(this.state);
+    this.state.organization.allowedUsers.splice(index, 1);
+    this.setState(this.state);
   }
 
   handleChange(event) {
@@ -131,15 +131,15 @@ class OrganizationForm extends Component {
   }
 
   handleUpdate(event) {
-      Backend.put("organization", this.state.organization)
-        .then(response => {
-          this.props.history.push("/organizations/" + response.id);
-        })
-        .catch(error => {
-          Utils.onErrorMessage("Couldn't update organization: ", error);
-        });
-      event.preventDefault();
-    }
+    Backend.put("organization", this.state.organization)
+      .then(response => {
+        this.props.history.push("/organizations/" + response.id);
+      })
+      .catch(error => {
+        Utils.onErrorMessage("Couldn't update organization: ", error);
+      });
+    event.preventDefault();
+  }
 
   normalizeId(id) {
     return id
@@ -150,55 +150,80 @@ class OrganizationForm extends Component {
 
   render() {
     return (
-      <div className='org-form'>
-        {this.props.editCurrent &&
-              (
-              <div>
-                <h1>Update Organization</h1>
-                <div>
-                    <b>{this.state.organization.licenseCapacity}</b> parallel user sessions are currently available for organization.
-                    <br/>
-                    Please <a href="https://www.testquack.com/#contacts" target="_blanc">contact us</a> to purchase more.
-                </div>
-              </div>
-              )
-        }
-        {!this.props.editCurrent &&
-              (
-                <h1>Create Organization</h1>
-              )
-        }
+      <div className="org-form">
+        {this.props.editCurrent && (
+          <div>
+            <h1>Update Organization</h1>
+            <div>
+              <b>{this.state.organization.licenseCapacity}</b> parallel user sessions are currently available for
+              organization.
+              <br />
+              Please{" "}
+              <a href="https://www.testquack.com/#contacts" target="_blanc">
+                contact us
+              </a>{" "}
+              to purchase more.
+            </div>
+          </div>
+        )}
+        {!this.props.editCurrent && <h1>Create Organization</h1>}
 
         <form>
           <div className="org-form-block">
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Name</label>
-                <div className="col-sm-9">
-                  {!this.state.readonly &&
-                    <input type="text" name="name" value={this.state.organization.name} onChange={this.handleChange} className="form-control"/>
-                  }
-                  {this.state.readonly &&
-                    <input type="text" name="name" value={this.state.organization.name} onChange={this.handleChange} className="form-control" disabled/>
-                  }
-                </div>
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Name</label>
+              <div className="col-sm-9">
+                {!this.state.readonly && (
+                  <input
+                    type="text"
+                    name="name"
+                    value={this.state.organization.name}
+                    onChange={this.handleChange}
+                    className="form-control"
+                  />
+                )}
+                {this.state.readonly && (
+                  <input
+                    type="text"
+                    name="name"
+                    value={this.state.organization.name}
+                    onChange={this.handleChange}
+                    className="form-control"
+                    disabled
+                  />
+                )}
               </div>
+            </div>
 
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Organization ID</label>
-                <div className="col-sm-9">
-                {!this.props.editCurrent &&
-                  <input type="text" name="id" value={this.state.organization.id || ""} onChange={this.handleChange} className="form-control"/>
-                }
-                {this.props.editCurrent &&
-                  <input type="text" name="id" value={this.state.organization.id || ""} onChange={this.handleChange} disabled className="form-control"/>
-                }
-                </div>
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Organization ID</label>
+              <div className="col-sm-9">
+                {!this.props.editCurrent && (
+                  <input
+                    type="text"
+                    name="id"
+                    value={this.state.organization.id || ""}
+                    onChange={this.handleChange}
+                    className="form-control"
+                  />
+                )}
+                {this.props.editCurrent && (
+                  <input
+                    type="text"
+                    name="id"
+                    value={this.state.organization.id || ""}
+                    onChange={this.handleChange}
+                    disabled
+                    className="form-control"
+                  />
+                )}
               </div>
+            </div>
 
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Description</label>
-                <div className="col-sm-9">
-                {this.state.readonly &&
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Description</label>
+              <div className="col-sm-9">
+                {this.state.readonly && (
                   <input
                     type="text"
                     name="description"
@@ -207,8 +232,8 @@ class OrganizationForm extends Component {
                     onChange={this.handleChange}
                     disabled
                   />
-                }
-                {!this.state.readonly &&
+                )}
+                {!this.state.readonly && (
                   <input
                     type="text"
                     name="description"
@@ -216,86 +241,100 @@ class OrganizationForm extends Component {
                     value={this.state.organization.description}
                     onChange={this.handleChange}
                   />
-                }
-                </div>
+                )}
               </div>
+            </div>
           </div>
           <div className="org-form-block">
             <h4> Administrators </h4>
-            {this.state.organization.admins.map(function (admin, index) {
-              return this.state.readonly ? (
-                <div index={index}>
-                  {admin}
-                </div>
-              ) :
-              (
+            {this.state.organization.admins.map(
+              function (admin, index) {
+                return this.state.readonly ? (
+                  <div index={index}>{admin}</div>
+                ) : (
                   <div index={index}>
                     {admin}
                     {!this.state.readonly && this.currentLogin !== admin && (
-                        <span className="clickable edit-icon-visible red" onClick={e => this.handleAdminDeleted(index, e)}>
-                          <FontAwesomeIcon icon={faMinusCircle} />
-                        </span>
+                      <span
+                        className="clickable edit-icon-visible red"
+                        onClick={e => this.handleAdminDeleted(index, e)}
+                      >
+                        <FontAwesomeIcon icon={faMinusCircle} />
+                      </span>
                     )}
                   </div>
                 );
-            }.bind(this))}
+              }.bind(this),
+            )}
             {!this.state.readonly && (
-                <div className="row org-users-form">
-                    <div className="col-sm-8">
-                        <input type="text" name="administrators" className="form-control" value={this.state.administratorsEdit} onChange={this.handleAdminsChange}/>
-                    </div>
-                    <div className="col-sm-4">
-                        <button type="button" className="btn btn-primary" onClick={this.handleAdminAdded}> Add Administrator </button>
-                    </div>
+              <div className="row org-users-form">
+                <div className="col-sm-8">
+                  <input
+                    type="text"
+                    name="administrators"
+                    className="form-control"
+                    value={this.state.administratorsEdit}
+                    onChange={this.handleAdminsChange}
+                  />
                 </div>
+                <div className="col-sm-4">
+                  <button type="button" className="btn btn-primary" onClick={this.handleAdminAdded}>
+                    {" "}
+                    Add Administrator{" "}
+                  </button>
+                </div>
+              </div>
             )}
           </div>
-
 
           <div className="org-form-block">
             <h4> Users </h4>
-            {this.state.organization.allowedUsers.map(function (user, index) {
-              return this.state.readonly ? (
-                <div index={index}>
-                    {user}
-                </div>
-              ) : (
-                <div index={index}>
+            {this.state.organization.allowedUsers.map(
+              function (user, index) {
+                return this.state.readonly ? (
+                  <div index={index}>{user}</div>
+                ) : (
+                  <div index={index}>
                     {user}
                     <span className="clickable edit-icon-visible red" onClick={e => this.handleUserDeleted(index, e)}>
-                        <FontAwesomeIcon icon={faMinusCircle} />
+                      <FontAwesomeIcon icon={faMinusCircle} />
                     </span>
-                </div>
-              );
-            }.bind(this))}
+                  </div>
+                );
+              }.bind(this),
+            )}
             {!this.state.readonly && (
-                <div className="row org-users-form">
-                    <div className="col-sm-8">
-                        <input type="text" name="users" className="form-control" value={this.state.usersEdit} onChange={this.handleUsersChange}/>
-                    </div>
-                    <div className="col-sm-4">
-                        <button type="button" className="btn btn-primary" onClick={this.handleUserAdded}>Add User</button>
-                    </div>
+              <div className="row org-users-form">
+                <div className="col-sm-8">
+                  <input
+                    type="text"
+                    name="users"
+                    className="form-control"
+                    value={this.state.usersEdit}
+                    onChange={this.handleUsersChange}
+                  />
                 </div>
+                <div className="col-sm-4">
+                  <button type="button" className="btn btn-primary" onClick={this.handleUserAdded}>
+                    Add User
+                  </button>
+                </div>
+              </div>
             )}
           </div>
 
           <div className="org-form-block">
-          {this.props.editCurrent && !this.state.readonly &&
-            (
+            {this.props.editCurrent && !this.state.readonly && (
               <button type="button" className="btn btn-primary" onClick={this.handleUpdate}>
-                  Update
-               </button>
-            )
-          }
-          {!this.props.editCurrent &&
-              (
-                <button type="button" className="btn btn-primary" onClick={this.handleCreate}>
-                    Create
-                 </button>
-              )
-           }
-        </div>
+                Update
+              </button>
+            )}
+            {!this.props.editCurrent && (
+              <button type="button" className="btn btn-primary" onClick={this.handleCreate}>
+                Create
+              </button>
+            )}
+          </div>
         </form>
       </div>
     );

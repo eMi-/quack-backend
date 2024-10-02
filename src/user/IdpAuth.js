@@ -7,18 +7,18 @@ class IdpAuth extends Component {
     return <div></div>;
   }
 
-    onSessionChange(session) {
-      this.props.onSessionChange(session);
-    }
+  onSessionChange(session) {
+    this.props.onSessionChange(session);
+  }
 
   componentDidMount() {
     Backend.get("user/auth?" + this.props.location.search.substring(1))
       .then(response => {
         this.onSessionChange(response);
-        if (response.metainfo && response.metainfo.organizationsEnabled){
-            window.location = "/orgselect";
+        if (response.metainfo && response.metainfo.organizationsEnabled) {
+          window.location = "/orgselect";
         } else {
-            window.location = "/";
+          window.location = "/";
         }
       })
       .catch(error => {

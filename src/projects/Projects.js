@@ -39,10 +39,10 @@ class Projects extends Component {
         </div>
 
         {(this.state.projects || []).length == 0 && (
-            <div class="alert alert-light center-text" role="alert">
-              You do not have any projects yet <br/>
-              Ask your admin to grant you permission or <Link to={"/projects/new"}>create a new one</Link>
-            </div>
+          <div class="alert alert-light center-text" role="alert">
+            You do not have any projects yet <br />
+            Ask your admin to grant you permission or <Link to={"/projects/new"}>create a new one</Link>
+          </div>
         )}
 
         {this.state.projects.map(function (project) {

@@ -18,7 +18,7 @@ export function getTreeNode(node, parentsToUpdate, uncheckedList) {
     text: "<b>" + node.title + "</b>",
     isLeaf: false,
     id: node.id,
-    uuid: node.uuid
+    uuid: node.uuid,
   };
   resultNode.TOTAL = 0;
   resultNode.PASSED = 0;
@@ -223,9 +223,7 @@ export function getDatepickerTime(timeMillis) {
 }
 
 export function isUserOwnerOrAdmin(userSession, createdById) {
-  return (
-    userSession && (userSession.isAdmin || userSession.person.login === createdById)
-  );
+  return userSession && (userSession.isAdmin || userSession.person.login === createdById);
 }
 
 export function onErrorMessage(message, error) {

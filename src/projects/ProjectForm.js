@@ -67,45 +67,57 @@ class ProjectForm extends Component {
 
   render() {
     return (
-      <div class="card" style={{ width: "35em", margin: "0 auto" }} >
+      <div class="card" style={{ width: "35em", margin: "0 auto" }}>
         <div class="card-header text-center">
-            <h1>Create Project</h1>
+          <h1>Create Project</h1>
         </div>
-          <div className="project-form card-text">
-            <form>
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Name</label>
-                <div className="col-sm-9">
-                  <input type="text" name="name" className="form-control" value={this.state.project.name} onChange={this.handleChange} />
-                </div>
+        <div className="project-form card-text">
+          <form>
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Name</label>
+              <div className="col-sm-9">
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  value={this.state.project.name}
+                  onChange={this.handleChange}
+                />
               </div>
+            </div>
 
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Project ID</label>
-                <div className="col-sm-9">
-                  <input type="text" name="id" className="form-control" value={this.state.project.id || ""} onChange={this.handleChange} />
-                </div>
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Project ID</label>
+              <div className="col-sm-9">
+                <input
+                  type="text"
+                  name="id"
+                  className="form-control"
+                  value={this.state.project.id || ""}
+                  onChange={this.handleChange}
+                />
               </div>
+            </div>
 
-              <div className="form-group row">
-                <label className="col-sm-3 col-form-label">Description</label>
-                <div className="col-sm-9">
-                  <input
-                    type="text"
-                    name="description"
-                    className="form-control"
-                    value={this.state.project.description}
-                    onChange={this.handleChange}
-                  />
-                </div>
+            <div className="form-group row">
+              <label className="col-sm-3 col-form-label">Description</label>
+              <div className="col-sm-9">
+                <input
+                  type="text"
+                  name="description"
+                  className="form-control"
+                  value={this.state.project.description}
+                  onChange={this.handleChange}
+                />
               </div>
-              <div className="project-form-block">
-                  <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>
-                    Create
-                  </button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div className="project-form-block">
+              <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

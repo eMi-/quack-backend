@@ -80,8 +80,8 @@ class TestCasesFilter extends Component {
       Backend.get(this.props.match.params.project + "/testsuite/" + params.testSuite)
         .then(response => {
           this.state.testSuite = response;
-          if (this.state.testSuite.filter.filters.length == 0){
-            this.state.testSuite.filter.filters = this.defaultFilters
+          if (this.state.testSuite.filter.filters.length == 0) {
+            this.state.testSuite.filter.filters = this.defaultFilters;
           }
           this.state.testSuiteNameToDisplay = this.state.testSuite.name;
           this.state.groupsToDisplay = this.state.testSuite.filter.groups.map(
@@ -137,8 +137,8 @@ class TestCasesFilter extends Component {
           this.state.testSuite.filter.filters.shift();
         }
       }
-      if (params.fulltext){
-          this.state.testSuite.filter.fulltext = params.fulltext;
+      if (params.fulltext) {
+        this.state.testSuite.filter.fulltext = params.fulltext;
       }
       this.setState(this.state);
       this.props.onFilter(this.state.testSuite.filter);
@@ -178,7 +178,7 @@ class TestCasesFilter extends Component {
     this.setState(this.state);
   }
 
-  changeFulltext(event){
+  changeFulltext(event) {
     this.state.testSuite.filter.fulltext = event.target.value;
     this.setState(this.state);
   }
@@ -286,76 +286,101 @@ class TestCasesFilter extends Component {
               <button type="button" className="btn btn-warning" title="Save Test Suite" onClick={this.showSuiteModal}>
                 <FontAwesomeIcon icon={faSave} />
               </button>
-              <button type="button" className="btn btn-success" title="Launch Tescases" onClick={this.createLaunchModal}>
+              <button
+                type="button"
+                className="btn btn-success"
+                title="Launch Tescases"
+                onClick={this.createLaunchModal}
+              >
                 <FontAwesomeIcon icon={faPlay} />
               </button>
-              <button type="button" className="btn btn-primary" title="Add Testcase" data-toggle="modal" data-target="#editTestcase">
+              <button
+                type="button"
+                className="btn btn-primary"
+                title="Add Testcase"
+                data-toggle="modal"
+                data-target="#editTestcase"
+              >
                 <FontAwesomeIcon icon={faPlus} />
               </button>
-              <button type="button" title="More" class="btn dropdown-toggle clickable" href="#" role="button" id="dropdownMoreLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                 <FontAwesomeIcon icon={faBars} />
+              <button
+                type="button"
+                title="More"
+                class="btn dropdown-toggle clickable"
+                href="#"
+                role="button"
+                id="dropdownMoreLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <FontAwesomeIcon icon={faBars} />
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMoreLink">
-                 <a class="dropdown-item" href={"/api/" + this.props.match.params.project + "/testcase/csv"} title="Export to CSV"><FontAwesomeIcon icon={faFileCsv} /> Export to CSV</a>
-               </div>
+                <a
+                  class="dropdown-item"
+                  href={"/api/" + this.props.match.params.project + "/testcase/csv"}
+                  title="Export to CSV"
+                >
+                  <FontAwesomeIcon icon={faFileCsv} /> Export to CSV
+                </a>
+              </div>
             </div>
           </div>
 
-            <div>
+          <div>
             {this.state.testSuite.filter.filters.map(
               function (filter, i) {
                 return (
-                <div className="row filter-control-row" key={i}>
-                  <div className="col-1">
-                      {i == 0 ? "Filter" : ""}
+                  <div className="row filter-control-row" key={i}>
+                    <div className="col-1">{i == 0 ? "Filter" : ""}</div>
+                    <Select
+                      className="col-2 filter-attribute-id-select"
+                      value={{ value: filter.id, label: filter.name }}
+                      onChange={e => this.changeFilterAttributeId(i, e)}
+                      options={this.getProjectAttributesSelect()}
+                    />
+                    <Select
+                      className="col-3 filter-attribute-val-select"
+                      value={(filter.attrValues || []).map(function (attrValue) {
+                        return { value: attrValue.value, label: attrValue.value };
+                      })}
+                      isMulti
+                      onChange={e => this.changeFilterAttributeValues(i, e)}
+                      options={this.getValuesByAttributeId(filter.id).map(function (attrValue) {
+                        return { value: attrValue.value, label: attrValue.value };
+                      })}
+                    />
+                    {filter.id && (
+                      <span
+                        className="col-1 remove-filter-icon clickable red"
+                        index={i}
+                        onClick={e => this.removeFilter(i, e)}
+                      >
+                        <FontAwesomeIcon icon={faMinusCircle} />
+                      </span>
+                    )}
                   </div>
-                  <Select
-                    className="col-2 filter-attribute-id-select"
-                    value={{ value: filter.id, label: filter.name }}
-                    onChange={e => this.changeFilterAttributeId(i, e)}
-                    options={this.getProjectAttributesSelect()}
-                  />
-                  <Select
-                    className="col-3 filter-attribute-val-select"
-                    value={(filter.attrValues || []).map(function (attrValue) {
-                      return { value: attrValue.value, label: attrValue.value };
-                    })}
-                    isMulti
-                    onChange={e => this.changeFilterAttributeValues(i, e)}
-                    options={this.getValuesByAttributeId(filter.id).map(function (attrValue) {
-                      return { value: attrValue.value, label: attrValue.value };
-                    })}
-                  />
-                  {filter.id && (
-                    <span
-                      className="col-1 remove-filter-icon clickable red"
-                      index={i}
-                      onClick={e => this.removeFilter(i, e)}
-                    >
-                      <FontAwesomeIcon icon={faMinusCircle} />
-                    </span>
-                  )}
-                </div>
                 );
               }.bind(this),
             )}
-            </div>
+          </div>
 
           <div className="row filter-control-row">
-              <div className="col-1">Search</div>
-              <div className="col-5">
-                  <div className="row">
-                      <div className="col-12">
-                          <input
-                              type="text"
-                              className="form-control"
-                              name="fulltext"
-                              value={this.state.testSuite.filter.fulltext || ""}
-                              onChange={e => this.changeFulltext(e)}
-                            />
-                      </div>
-                  </div>
+            <div className="col-1">Search</div>
+            <div className="col-5">
+              <div className="row">
+                <div className="col-12">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="fulltext"
+                    value={this.state.testSuite.filter.fulltext || ""}
+                    onChange={e => this.changeFulltext(e)}
+                  />
+                </div>
               </div>
+            </div>
           </div>
         </div>
 

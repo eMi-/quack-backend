@@ -51,26 +51,23 @@ class Main extends Component {
           <Route exact path="/projects" component={Projects} />
           <Route exact path="/projects/new" component={ProjectForm} />
 
-          <Route exact
+          <Route
+            exact
             path="/orgselect"
-            render={props =>(
-                <OrgSelect {...props} onSessionChange={this.onSessionChange.bind(this)} />
-                )}
+            render={props => <OrgSelect {...props} onSessionChange={this.onSessionChange.bind(this)} />}
           />
           <Route exact path="/organizations/new" component={OrganizationForm} />
           <Route
-              exact
-              path="/organizations/edit"
-              render={props => <OrganizationForm {...props} editCurrent="true" />}
-            />
+            exact
+            path="/organizations/edit"
+            render={props => <OrganizationForm {...props} editCurrent="true" />}
+          />
 
           <Route exact path="/auth" component={Auth} />
           <Route
-              path="/idpauth"
-              render={props => (
-                <IdpAuth {...props} onSessionChange={this.onSessionChange.bind(this)}/>
-              )}
-            />
+            path="/idpauth"
+            render={props => <IdpAuth {...props} onSessionChange={this.onSessionChange.bind(this)} />}
+          />
 
           <Route
             exact
@@ -85,7 +82,12 @@ class Main extends Component {
           <Route
             exact
             path="/user/change-password-redirect/:login"
-            render={props => <Redirect {...props} requestUrl={"user/change-password-redirect?login=" + props.match.params["login"] || ""} />}
+            render={props => (
+              <Redirect
+                {...props}
+                requestUrl={"user/change-password-redirect?login=" + props.match.params["login"] || ""}
+              />
+            )}
           />
 
           <Route exact path="/user/create" component={CreateUser} />
