@@ -1,1 +1,1 @@
-web: java -jar target/backend.jar
+web: cd ui && npm run start
