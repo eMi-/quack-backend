@@ -24,7 +24,6 @@
         <module>liken-launcher</module>
         <module>services</module>
         <module>api</module>
-        <module>ui</module>
         <module>assembly</module>
         <module>smith-launcher</module>
 
@@ -362,12 +361,6 @@
                 <groupId>org.jvnet.jaxb2_commons</groupId>
                 <artifactId>jaxb2-basics-runtime</artifactId>
                 <version>${jaxb.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-impl</artifactId>
-                <version>2.2.6</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>
