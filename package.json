@@ -41,15 +41,15 @@
     "heroku-postbuild": "yarn install && yarn build",
     "start": "react-scripts --openssl-legacy-provider start",
     "start:dev": "BASE_API_URL=http://localhost:81/api/ yarn start",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "yarn eslint . --cache --cache-strategy content",
     "lint:fix": "yarn eslint --fix --cache --cache-strategy content .",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "clean": "rm -f .eslintcache",
-    "postinstall": "rm -f .eslintcache"
+    "clean": "del /f .eslintcache",
+    "postinstall": "del /f .eslintcache"
   },
   "browserslist": {
     "production": [
