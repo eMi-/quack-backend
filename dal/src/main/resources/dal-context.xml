@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/data/mongo
+            http://www.springframework.org/schema/data/mongo/spring-mongo-2.0.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:component-scan base-package="com.testquack, ru.greatbit.whoru, ru.greatbit.plow">
+        <context:include-filter type="annotation" expression="ru.greatbit.plow.contract.Plugin"/>
+    </context:component-scan>
+
+    <bean id="props" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="localOverride" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath*:quack.properties</value>
+                <value>file/:quack.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <mongo:repositories base-package="com.testquack.dal" repository-impl-postfix="CustomImpl"/>
+
+    <!-- Grid FS -->
+    <mongo:mapping-converter id="mappingMongoConverter" />
+    <bean name="gridFsTemplate"
+          class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+        <constructor-arg ref="mongoDbFactory" />
+        <constructor-arg ref="mappingMongoConverter" />
+    </bean>
+
+
+
+</beans>

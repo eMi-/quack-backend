@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:beans.testquack.com"
+           targetNamespace="urn:beans.testquack.com"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+           jaxb:extensionBindingPrefixes="inheritance"
+           jaxb:version="2.1"
+           elementFormDefault="qualified">
+
+    <xs:element name="entityPreview" type="EntityPreview" abstract="true"/>
+    <xs:complexType name="EntityPreview">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="deleted" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="entity" type="Entity"/>
+    <xs:complexType name="Entity">
+        <xs:complexContent>
+            <xs:extension base="EntityPreview">
+                <xs:sequence>
+                    <xs:element name="createdTime" type="xs:long"/>
+                    <xs:element name="lastModifiedTime" type="xs:long"/>
+                    <xs:element name="createdBy" type="xs:string"/>
+                    <xs:element name="lastModifiedBy" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Property">
+        <xs:sequence>
+            <xs:element name="key" type="xs:string"/>
+            <xs:element name="value" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Sequencer">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="index" type="xs:long" default="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

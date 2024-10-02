@@ -1,0 +1,379 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.filter-attribute-id-select{
+    padding-right: 0px;
+}
+.filter-attribute-val-select{
+    padding-left: 0px;
+}
+
+.tree-side{
+    height: 100vh;
+    overflow-y: scroll;
+    z-index: 0;
+}
+
+.testcase-side{
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.testcase-section{
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer > .container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+
+.bg-green {
+    background-color: #135f38!important;
+    #background-color: #13515f!important;
+}
+
+.edit-icon-visible {
+    margin-left: 10px;
+}
+
+.edit-icon {
+    margin-left: 10px;
+    visibility: hidden;
+}
+
+b:hover .edit-icon {
+    margin-left: 10px;
+    visibility: visible;
+}
+
+h1:hover .edit-icon {
+    margin-left: 10px;
+    visibility: visible;
+}
+
+h5:hover .edit-icon {
+    margin-left: 10px;
+    visibility: visible;
+}
+
+
+.red {
+    color: #da0000;
+}
+
+.project-card {
+    margin-bottom: 20px;
+}
+
+.organization-card {
+    margin-bottom: 20px;
+}
+
+.testsuite-card {
+    margin-bottom: 20px;
+}
+
+.remove-filter-icon {
+    margin-left: -29px;
+}
+
+.card-step {
+    width: 100%;
+}
+
+.attribute-block {
+     margin-bottom: 10px;
+ }
+
+.attachments-list {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.tab-badge {
+    margin-left: 5px;
+}
+
+.launch-filter {
+    margin-top: 20px;
+}
+
+.expectations {
+    margin-top: 25px;
+}
+
+.testcase-inplace-buttons-down {
+    margin-top: 10px;
+}
+
+.alert-message {
+    position: absolute;
+
+    z-index: 1;
+    display: none;
+    float: right;
+}
+
+.launch-summary-block {
+     margin-bottom: 10px;
+}
+
+.launch-status-controls {
+    margin-top: 50px;
+}
+
+.attributes-controls {
+    margin-top: 20px;
+}
+
+.grouping-control {
+    max-width: 38.2%;
+}
+
+.filter-control-row {
+    margin-bottom: 10px;
+}
+
+.project-settings-control {
+    margin-top: 30px;
+}
+
+.launcher-details {
+    margin-top: 20px;
+}
+
+.restart-launch-control {
+    margin-top: 20px;
+}
+
+.external-launch-link{
+    margin-left: 5px;
+}
+
+.name-icon{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.events-filter {
+    margin-top: 20px;
+}
+
+.broken-toggle {
+    font-size: 10px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.project-settings-section {
+    margin-bottom: 30px;
+}
+
+.project-settings-launchers {
+    margin-top: 15px;
+    margin-left: 1px;
+}
+
+.launch-attr-stats {
+    margin-top: 50px;
+}
+
+.launch-attr-stats-chart {
+    margin-top: 30px;
+}
+
+.project-header {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.organization-header {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+
+a.project-title-settings-link:link, a.project-title-settings-link:visited {
+    color: black !important;
+    font-size: 24px;
+}
+
+a.organization-title-settings-link:link, a.organization-title-settings-link:visited {
+    color: black !important;
+    font-size: 24px;
+}
+
+.launch-title {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.step {
+    margin-bottom: 20px;
+}
+
+.create-user-form{
+    width: 100%;
+    max-width: 700px;
+    padding: 15px;
+    margin: auto;
+}
+
+.launch-form-spinner{
+    margin-left: 220px;
+}
+
+.tox-notifications-container {
+    display: none !important;
+}
+
+.rounded {
+    border-radius: .8rem!important;
+}
+
+.inplace-display p {
+    margin-bottom: 0rem;
+}
+
+.select-org {
+    max-width: 600px;
+    margin: auto;
+    padding: 10px;
+}
+
+.org-form-block {
+    margin-top: 40px;
+    padding-bottom: 30px;
+}
+
+.org-form {
+    max-width: 700px;
+}
+
+.org-users-form {
+    margin-top: 20px;
+}
+
+.project-form {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: auto;
+}
+
+.project-form-block {
+    margin-top: 40px;
+}
+
+.project-form-title {
+    margin-bottom: 30px;
+}
+
+a.link-black, a.link-black:link, a.link-black:link:visited {
+    color: black !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.testcase-id-in-title {
+    font-size: 80%;
+    margin-right: 15px;
+}

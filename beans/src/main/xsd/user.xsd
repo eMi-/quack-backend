@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:beans.testquack.com"
+           targetNamespace="urn:beans.testquack.com"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+           jaxb:extensionBindingPrefixes="inheritance"
+           jaxb:version="2.1"
+           elementFormDefault="qualified">
+
+    <xs:include schemaLocation="common.xsd"/>
+
+    <xs:element name="user" type="User"/>
+    <xs:complexType name="User">
+        <xs:complexContent>
+            <xs:extension base="Entity">
+                <xs:sequence>
+                    <xs:element name="login" type="xs:string"/>
+                    <xs:element name="password" type="xs:string"/>
+                    <xs:element name="firstName" type="xs:string"/>
+                    <xs:element name="lastName" type="xs:string"/>
+                    <xs:element name="middleName" type="xs:string"/>
+                    <xs:element name="token" type="xs:string"/>
+                    <xs:element name="groups" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="passwordChangeRequired" type="xs:boolean"/>
+                    <xs:element name="organizations" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="adminOfOrganizations" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="role" type="Role"/>
+    <xs:simpleType name="Role">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ADMIN"/>
+            <xs:enumeration value="USER"/>
+            <xs:enumeration value="GUEST"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="changePasswordRequest" type="ChangePasswordRequest"/>
+    <xs:complexType name="ChangePasswordRequest">
+        <xs:sequence>
+            <xs:element name="login" type="xs:string"/>
+            <xs:element name="newPassword" type="xs:string"/>
+            <xs:element name="oldPassword" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:beans.testquack.com"
+           targetNamespace="urn:beans.testquack.com"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+           jaxb:extensionBindingPrefixes="inheritance"
+           jaxb:version="2.1"
+           elementFormDefault="qualified">
+
+    <xs:include schemaLocation="common.xsd"/>
+    <xs:include schemaLocation="comment.xsd"/>
+    <xs:include schemaLocation="testcase.xsd"/>
+    <xs:include schemaLocation="testsuite.xsd"/>
+    <xs:include schemaLocation="launcher.xsd"/>
+
+    <xs:element name="launch" type="LaunchBase"/>
+    <xs:complexType name="LaunchBase">
+        <xs:complexContent>
+            <xs:extension base="Entity">
+                <xs:sequence>
+                    <xs:element name="description" type="xs:string"/>
+                    <xs:element name="users" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="version" type="xs:string"/>
+                    <xs:element name="testSuite" type="TestSuite"/>
+                    <xs:element name="status" type="LaunchStatus"/>
+                    <xs:element name="startTime" type="xs:long"/>
+                    <xs:element name="finishTime" type="xs:long"/>
+                    <xs:element name="launcherConfig" type="LauncherConfigBase"/>
+                    <xs:element name="properties" type="Property" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="skipBroken" type="xs:boolean" default="true"/>
+                    <xs:element name="environment" type="xs:string"/>
+                    <xs:element name="environments" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="launchGroup" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="launchTestCase" type="LaunchTestCase"/>
+    <xs:complexType name="LaunchTestCase">
+        <xs:complexContent>
+            <xs:extension base="TestCase">
+                <xs:sequence>
+                    <xs:element name="uuid" type="xs:string"/>
+                    <xs:element name="users" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="currentUser" type="xs:string"/>
+                    <xs:element name="launchStatus" type="LaunchStatus"/>
+                    <xs:element name="startTime" type="xs:long"/>
+                    <xs:element name="finishTime" type="xs:long"/>
+                    <xs:element name="duration" type="xs:long"/>
+                    <xs:element name="failureDetails" type="FailureDetails"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="failureDetails" type="FailureDetails"/>
+    <xs:complexType name="FailureDetails">
+        <xs:complexContent>
+            <xs:extension base="Comment">
+                <xs:sequence>
+                    <xs:element name="failedStep" type="xs:string"/>
+                    <xs:element name="uuid" type="xs:string"/>
+                    <xs:element name="linkedIssue" type="Issue"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="launchStatus" type="LaunchStatus"/>
+    <xs:simpleType name="LaunchStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="RUNNABLE"/>
+            <xs:enumeration value="RUNNING"/>
+            <xs:enumeration value="FAILED"/>
+            <xs:enumeration value="BROKEN"/>
+            <xs:enumeration value="PASSED"/>
+            <xs:enumeration value="SKIPPED"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Statistics -->
+    <xs:element name="launchStatistics" type="LaunchStatisticsBase"/>
+    <xs:complexType name="LaunchStatisticsBase">
+        <xs:sequence>
+            <xs:element name="version" type="xs:string"/>
+            <xs:element name="versionName" type="xs:string"/>
+            <xs:element name="launchCount" type="xs:int"/>
+            <xs:element name="launchTimes" type="LaunchTimes"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="launchTimes" type="LaunchTimes"/>
+    <xs:complexType name="LaunchTimes">
+        <xs:sequence>
+            <xs:element name="idle" type="xs:long"/>
+            <xs:element name="duration" type="xs:long"/>
+            <xs:element name="firstStart" type="xs:long"/>
+            <xs:element name="lastStart" type="xs:long"/>
+            <xs:element name="lastFinish" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
