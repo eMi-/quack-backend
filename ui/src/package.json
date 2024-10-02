@@ -34,7 +34,7 @@
     "semantic-ui-react": "^0.88.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "start:dev": "BASE_API_URL=http://localhost:81/api/ yarn start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
