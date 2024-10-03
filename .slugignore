@@ -1,0 +1,7 @@
+node_modules/
+*.log
+tmp/
+tests/
+docs/
+storage/
+build/
